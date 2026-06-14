@@ -1,16 +1,86 @@
-# React + Vite
+# 🏠 Flatmates — Group Expense Splitter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, production-quality web app for tracking shared flat expenses, detecting data anomalies in imported CSVs, calculating net balances, and generating minimum-payment settlement plans.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Demo
 
-## React Compiler
+> [https://spreetail.vercel.app](https://spreetail.vercel.app) *(replace with your deployed URL)*
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Layer | Choice |
+|---|---|
+| Framework | React 19 (via Vite 6) |
+| Styling | Vanilla CSS with CSS custom properties (design tokens) |
+| Build tool | Vite |
+| Font | Inter (Google Fonts) |
+| Deployment | Vercel |
+
+No UI component library was used. Every component (`Avatar`, `Badge`, `Modal`, tabs) was written from scratch.
+
+---
+
+## Local Setup
+
+### Prerequisites
+- Node.js ≥ 18
+- npm ≥ 9
+
+### Steps
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/<your-username>/spreetail.git
+cd spreetail
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the dev server
+npm run dev
+```
+
+The app will be available at **http://localhost:5173**.
+
+### Build for production
+
+```bash
+npm run build       # outputs to dist/
+npm run preview     # preview the production build locally
+```
+
+---
+
+## Project Structure
+
+```
+src/
+├── data/
+│   └── constants.js          # All raw data: MEMBERS, RAW_EXPENSES, ANOMALIES
+├── utils/
+│   └── finance.js            # Pure JS: calcBalances, calcShares, minimizeTransactions
+├── components/
+│   ├── Avatar.jsx            # Coloured member avatar
+│   ├── Badge.jsx             # Severity badge (error / warn / info / success)
+│   ├── Modal.jsx             # Generic modal shell
+│   └── AddExpenseModal.jsx   # Add-expense form modal
+├── tabs/
+│   ├── BalancesTab.jsx       # Net balance + simplified settlement view
+│   ├── ExpensesTab.jsx       # Monthly expense list with detail modal
+│   ├── ImportTab.jsx         # Anomaly report (errors + warnings)
+│   └── SettleTab.jsx         # Minimum payment plan + Mark Paid
+├── App.jsx                   # Root: navigation, topbar, modal state
+└── App.css                   # Full design system (tokens, layout, animations)
+```
+
+---
+
+## AI Tools Used
+
+See [AI_USAGE.md](./AI_USAGE.md) for a detailed account of all AI assistance, key prompts, and cases where AI output was wrong and had to be corrected.
+
+The primary AI tool used was **Antigravity (Google DeepMind)** — an agentic coding assistant — which was used for scaffolding, component generation, and CSS authoring.
